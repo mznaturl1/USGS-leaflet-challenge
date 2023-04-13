@@ -55,3 +55,44 @@ function chooseColor(mag){
             return "#E2FFAE";
     }
 }
+// Create map legend to provide context for map data
+let legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function() {
+    var div = L.DomUtil.create('div', 'info legend');
+    var grades = [1.0, 2.5, 4.0, 5.5, 8.0];
+    var labels = [];
+    var legendInfo = "<h4>Magnitude</h4>";
+
+    div.innerHTML = legendInfo
+
+    // go through each magnitude item to label and color the legend
+    // push to labels array as list item
+    for (var i = 0; i < grades.length; i++) {
+          labels.push('<ul style="background-color:' + chooseColor(grades[i] + 1) + '"> <span>' + grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '' : '+') + '</span></ul>');
+        }
+
+      // add each label list item to the div under the <ul> tag
+      div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+    
+    return div;
+  };
+
+
+// Create map
+function createMap(earthquakes) {
+   // Define outdoors and graymap layers
+   let streetstylemap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "outdoors-v11",
+    accessToken: API_KEY
+  })
+
+  let graymap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "light-v10",
+    accessToken: API_KEY
+  });
+}
