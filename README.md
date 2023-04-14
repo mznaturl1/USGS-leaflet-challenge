@@ -15,7 +15,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
 ### Leaflet Part 1: Create the Earthquake Visualization
 
-![Grayscale](./Images/grayscale.jpg "Grayscale View")
+![Outdoors](./Images/outdoors.png)
 
 1. Dataset
     - Review and select datasets from [USGS GeoJSON Feed](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php)
@@ -34,14 +34,15 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
     - Include popups that provide additional information about the earthquake when its associated marker is clicked.
 
-    ![bindPopup](./Images/bindPopup.jpg)
+    ![bindPopup](./Images/bindPopup.png)
 
     - Create a legend that will provide context for your map data.
 
-    ![legend](./Images/legend.jpg)
+    ![legend](./Images/legend.png)
 
 - Part 2: Gather and Plot More Data (Optional)
-![Outdoors](./Images/outdoors.jpg)
+![Grayscale](./Images/grayscale.png "Grayscale View")
+
 
 
 ### Leaflet Part 2: Gather and Plot More Data (Optional)
