@@ -55,6 +55,7 @@ function chooseColor(mag){
             return "#E2FFAE";
     }
 }
+
 // Create map legend to provide context for map data
 let legend = L.control({position: 'bottomright'});
 
@@ -84,15 +85,40 @@ function createMap(earthquakes) {
    // Define outdoors and graymap layers
    let streetstylemap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
+    maxZoom: 20,
     id: "outdoors-v11",
     accessToken: API_KEY
   })
 
   let graymap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
+    maxZoom: 20,
     id: "light-v10",
     accessToken: API_KEY
   });
+
+  // Define a baseMaps object to hold our base layers
+  let baseMaps = {
+    "Outdoors": streetstylemap,
+    "Grayscale": graymap
+  };
+
+  // Create overlay object to hold our overlay layer
+  let overlayMaps = {
+    Earthquakes: earthquakes
+  };
+
+  // Create our map, giving it the streetmap and earthquakes layers to display on load
+  let myMap = L.map("map", {
+    center: [
+      39.8282, -98.5795
+    ],
+    zoom: 4,
+    layers: [streetstylemap, earthquakes]
+  });
+  // Add the layer control to the map
+  L.control.layers(baseMaps, overlayMaps, {
+    collapsed: false
+  }).addTo(myMap);
+  legend.addTo(myMap);
 }
